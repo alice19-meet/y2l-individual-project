@@ -7,31 +7,122 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
+  <link href="https://fonts.googleapis.com/css?family=Bitter|Indie+Flower" rel="stylesheet">
+  <style>
+
+
+        
+        .navbar-brand{
+          font-size: 35px;
+          font-style: oblique;
+        }
+body{
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+img {
+  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  filter: blur(3px);
+}
+.bg-img {
+  /* The image used */
+  background-image: url("img_nature.jpeg");
+
+  min-height: 380px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* Add styles to the form container */
+.container {
+  position: absolute;
+  right: 0;
+  margin: 20px;
+  max-width: 300px;
+  padding: 16px;
+  background-color: white;
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+
+
+/* Set a style for the submit button */
+#login {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+
+</style>
 </head>
 <body>
 
+
+ 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="#">Caters4U</a>
+        <a class="navbar-brand" href="/">Caters4U</a>
     </div>
 
     <ul class="nav navbar-nav navbar-right">
-    	<li><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-    	<li><a href="#"><span class="glyphicon glyphicon-tag"></span> Offers</a></li>
-    	<li><a href="#"><span class="glyphicon glyphicon-glass"></span> Create</a></li>   
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <form class="nav navbar-nav navbar-right" action="/action_page.php">
-        <form class="navbar-form navbar-left" action="/action_page.php">
-        <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-outline-light" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-    </form>
+      <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+      <li><a href="/offers"><span class="glyphicon glyphicon-tag"></span> Offers</a></li>
+      <li><a href="/create"><span class="glyphicon glyphicon-glass"></span> Create</a></li> 
+      <li><a href="/about_us"><span class="glyphicon glyphicon-briefcase"></span> About us</a></li>  
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+
+        <form class="navbar-form navbar-right" action="/action_page.php">
+           <div class="input-group">
+             <input type="text" class="form-control" placeholder="Search">
+               <div class="input-group-btn">
+                   <button class="btn btn-default" type="submit">
+                  <i class="glyphicon glyphicon-search"></i>
+                   </button>
+               </div>
+           </div>
+        </form>
+        
     </ul>    
   </div>
 </nav>
-  
 
+<img class="img-responsive" src="{{url_for('static', filename='images/img_nature.jpeg')}}">
+<div class="bg-img">
+  <form action="/action_page.php" class="container">
+    <h1>Login</h1>
+
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+
+    <button type="submit" class="btn" id="login">Login</button>
+  </form>
+</div>
     </body>
+
+    </html>

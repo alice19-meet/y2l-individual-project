@@ -14,15 +14,22 @@ def about_us():
 
 @app.route('/offers')
 def offers():
-	return render_template('offers.html')
+	return render_template('offer.html')
 
-@app.route('/create_your_own')
+@app.route('/create')
 def create():
 	return render_template('create.html')
 
 
+@app.route('/search', methods=['POST'])
+def search_bar():
+    if request.method=='POST':
+        search=request.form["search"]
+        offers=query_by_name(name=search).all()
+        return render_template('search.html', results=offers)
+    return render_template('home.html',login_session=login_session )
 
-app.route('/login', methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     #POST
     if request.method=="POST":
@@ -48,14 +55,13 @@ def login():
         return render_template('login.html')
 
 @app.route('/signup',methods=["GET", "POST"])
-
 def signup():
     if request.method=="POST":
         username = request.form['username']
-        password= request.form["password"]
         first_name=request.form["first_name"]
-        last_name=request.form["last_name"]
-        confirm= request.form["confirm"]
+        last_name=request.form["last_name"]    
+        password= request.form["password"]
+        confirm= request.form["confirm password"]
 
     if password==confirm:
         add_user(first_name, last_name, username, password)
