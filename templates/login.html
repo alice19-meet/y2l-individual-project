@@ -11,14 +11,16 @@
   <style>
 
 
-        
-        .navbar-brand{
-          font-size: 35px;
-          font-style: oblique;
-        }
+
+.navbar-brand{
+  font-size: 35px;
+  font-style: oblique;
+}
+
 body{
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
+
 
 }
 
@@ -31,16 +33,17 @@ img {
 }
 .bg-img {
   /* The image used */
-  background-image: url("img_nature.jpeg");
+  background-image: url('../static/images/img_nature.jpeg');
 
-  min-height: 380px;
+  min-height: 551px;
+  min-width: 1000px;
 
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-}
+  }
 
 /* Add styles to the form container */
 .container {
@@ -50,6 +53,8 @@ img {
   max-width: 300px;
   padding: 16px;
   background-color: white;
+
+
 }
 /* Full-width input fields */
 input[type=text], input[type=password] {
@@ -91,10 +96,15 @@ input[type=text], input[type=password] {
       <li><a href="/offers"><span class="glyphicon glyphicon-tag"></span> Offers</a></li>
       <li><a href="/create"><span class="glyphicon glyphicon-glass"></span> Create</a></li> 
       <li><a href="/about_us"><span class="glyphicon glyphicon-briefcase"></span> About us</a></li>  
+
+        {% if 'username' in login_session %}
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        {% else %} 
         <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        {% endif %}
 
-        <form class="navbar-form navbar-right" action="/action_page.php">
+        <form class="navbar-form navbar-right" action="/search">
            <div class="input-group">
              <input type="text" class="form-control" placeholder="Search">
                <div class="input-group-btn">
@@ -108,10 +118,8 @@ input[type=text], input[type=password] {
     </ul>    
   </div>
 </nav>
-
-<img class="img-responsive" src="{{url_for('static', filename='images/img_nature.jpeg')}}">
 <div class="bg-img">
-  <form action="/action_page.php" class="container">
+  <form action="/login" method="POST" class="container">
     <h1>Login</h1>
 
     <label for="username"><b>Username</b></label>

@@ -11,11 +11,66 @@
   <style>
 
 
-        
-        .navbar-brand{
-          font-size: 35px;
-          font-style: oblique;
-        }
+
+.navbar-brand{
+  font-size: 35px;
+  font-style: oblique;
+}
+body{
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+img {
+  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  filter: blur(3px);
+}
+.bg-img {
+  /* The image used */
+  background-image: url('../static/images/nature.jpg');
+
+  min-height: 570px;
+  min-width: 1000px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  }
+
+/* Add styles to the form container */
+.container {
+  position: absolute;
+  right: 37%;
+  margin: 20px;
+  max-width: 300px;
+  padding: 16px;
+  background-color: white;
+
+
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+
+#signup {
+background-color: #4CAF50;
+color: white;
+padding: 16px 20px;
+border: none;
+cursor: pointer;
+width: 100%;
+opacity: 0.9;
+}
 
   </style>
 </head>
@@ -32,10 +87,14 @@
       <li><a href="/offers"><span class="glyphicon glyphicon-tag"></span> Offers</a></li>
       <li><a href="/create"><span class="glyphicon glyphicon-glass"></span> Create</a></li> 
       <li><a href="/about_us"><span class="glyphicon glyphicon-briefcase"></span> About us</a></li>  
+       {% if 'username' in login_session %}
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        {% else %} 
         <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-
-        <form class="navbar-form navbar-right" action="/action_page.php">
+        {% endif %}
+      
+        <form class="navbar-form navbar-right" action="/search">
            <div class="input-group">
              <input type="text" class="form-control" placeholder="Search">
                <div class="input-group-btn">
@@ -50,5 +109,18 @@
   </div>
 </nav>
 
-    </body>
-    </html>
+
+
+<div class="bg-img">
+  <form action="/signup" method="POST" class="container">
+    <h1>Sign up</h1>
+    <input type="text" placeholder="Enter First name" name="first_name" required>
+    <input type="text" placeholder="Enter Last name" name="last_name" required>
+    <input type="text" placeholder="Enter Username" name="username" required>
+    <input type="password" placeholder="Enter Password" name="password" required>
+    <input type="password" placeholder="Confirm Password" name="confirm" required>
+    <button type="submit" class="btn" id="signup">Signup</button>
+  </form>
+
+</body>
+</html>

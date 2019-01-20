@@ -31,11 +31,16 @@
       <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
       <li><a href="/offers"><span class="glyphicon glyphicon-tag"></span> Offers</a></li>
       <li><a href="/create"><span class="glyphicon glyphicon-glass"></span> Create</a></li> 
-      <li><a href="/about_us"><span class="glyphicon glyphicon-briefcase"></span> About us</a></li>  
+      <li><a href="/about_us"><span class="glyphicon glyphicon-briefcase"></span> About us</a></li>
+       {% if 'username' in login_session %}
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        {% else %} 
         <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        {% endif %}  
 
-        <form class="navbar-form navbar-right" action="/action_page.php">
+
+        <form class="navbar-form navbar-right" action="/search">
            <div class="input-group">
              <input type="text" class="form-control" placeholder="Search">
                <div class="input-group-btn">

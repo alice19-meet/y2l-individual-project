@@ -1,33 +1,42 @@
 from flask import Flask, render_template, url_for, redirect, request
 from flask import session as login_session
+from database import *
 
 
 app = Flask(__name__)
+app.config["SECRETKEY"] = "change-this-letter"
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
+
 
 @app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template("home.html", login_session=login_session)
 
 @app.route('/about_us')
 def about_us():
-	return render_template('about_us.html')
+    return render_template('about_us.html', login_session=login_session)
 
 @app.route('/offers')
 def offers():
-	return render_template('offer.html')
+    return render_template('offer.html', login_session=login_session)
 
 @app.route('/create')
 def create():
-	return render_template('create.html')
+    return render_template('create.html', login_session=login_session)
 
 
-@app.route('/search', methods=['POST'])
-def search_bar():
+@app.route('/search', methods=["GET",'POST'])
+def search():
     if request.method=='POST':
         search=request.form["search"]
         offers=query_by_name(name=search).all()
-        return render_template('search.html', results=offers)
+        return render_template('offer.html', results=offers)
     return render_template('home.html',login_session=login_session )
+
+    if request.method=="GET":
+        return render_template('offer.html', login_session=login_session)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -52,24 +61,30 @@ def login():
         
 
     if request.method=="GET":
-        return render_template('login.html')
+        return render_template('login.html', login_session=login_session)
 
 @app.route('/signup',methods=["GET", "POST"])
 def signup():
+
     if request.method=="POST":
+        print(request.form)
         username = request.form['username']
         first_name=request.form["first_name"]
         last_name=request.form["last_name"]    
         password= request.form["password"]
-        confirm= request.form["confirm password"]
+        confirm= request.form["confirm"]
 
-    if password==confirm:
-        add_user(first_name, last_name, username, password)
-        login_session['id'] = query_by_username(username).id
-        login_session['username']= username
-        login_session['first_name']=first_name
-        login_session['last_name']=last_name
-        return redirect(url_for('home'))
+
+        if password==confirm:
+            add_user(first_name, last_name, username, password)
+            login_session['id'] = query_by_username(username).id
+            login_session['username']= username
+            login_session['first_name']=first_name
+            login_session['last_name']=last_name
+            return redirect(url_for('home'))
+
+        if password!=confirm:
+            return " Wrong Password"
         
     else:
         return render_template('signup.html', confirm=False)
@@ -77,7 +92,10 @@ def signup():
     if request.method=="GET":
         return render_template('signup.html')
 
-
+app.route('/users')
+def users(username):
+    comments=query_comment_by_user(username)
+    return render_template('users.html', u=query_by_username(login_session['username']), comments=comments)
 
 @app.route('/logout')
 def logout():

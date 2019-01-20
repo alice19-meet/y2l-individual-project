@@ -3,7 +3,7 @@ from model import *
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('sqlite:///cats.db')
+engine = create_engine('sqlite:///storage.db')
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -12,13 +12,13 @@ def add_offer(name,ingredients):
     offer_object=Offer(
     	name=name,
     	ingredients=ingredients)
-    session.add(offer_oject)
+    session.add(offer_object)
     session.commit()
 
 def query_by_name(name):
     return session.query(Offer).filter(Offer.name.contains(name))
 
-def add_user(first_name, last_name, username, password, ):	
+def add_user(first_name, last_name, username, password ):	
     user_object = User(
         first_name=first_name,
         last_name=last_name,
