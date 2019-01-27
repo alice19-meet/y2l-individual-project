@@ -13,6 +13,28 @@ app.config['SESSION_TYPE'] = 'filesystem'
 def home():
     return render_template("home.html", login_session=login_session)
 
+@app.route('/offers/<int:id>')
+def offer_profile(id):
+
+    offer=get_offer(id)
+    return render_template(
+        'offer.html', offer=offers)
+
+
+@app.route('/create', methods=['GET', 'POST'])
+def add_offer():
+    if request.method == 'GET':
+ 
+        return render_template('create.html')
+    else:
+        name = request.form['name']
+ 
+
+        create_offer(name)  
+        offers = get_all_offers()
+        return redirect(url_for('offers'))
+
+
 @app.route('/about_us')
 def about_us():
     return render_template('about_us.html', login_session=login_session)

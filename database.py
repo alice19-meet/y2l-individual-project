@@ -50,3 +50,21 @@ def delete_comment_by_id(comment_id):
         id=comment_id).delete()
 
     session.commit()
+
+def create_offer(name):
+    offer_object = Offer(name=name)
+    session.add(offer_object)
+    session.commit()
+
+def get_offer(id):
+	offer = session.query(Offer).filter_by(id=id).first()
+	return offer
+
+def new_offer(name):
+	offer = session.query(Offer).filter_by(name=name).first()
+	return offer
+
+def get_all_offers():
+    offers = session.query(Offer).all()
+    return offers
+

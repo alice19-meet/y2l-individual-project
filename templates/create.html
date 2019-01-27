@@ -10,7 +10,9 @@
   <link href="https://fonts.googleapis.com/css?family=Bitter|Indie+Flower" rel="stylesheet">
   <style>
 
-
+         body{
+          background-color:#abd1f3 ;
+        }
         
         .navbar-brand{
           font-size: 35px;
@@ -53,6 +55,23 @@
         
     </ul>    
   </div>
+
 </nav>
+
+  <div class="row">
+      {% for offer in offers%}
+      <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <img class="card-img-top" src="{{url_for('static', filename='images/logo.jpeg')}}">
+                <div class="card-body">
+                  <h5 class="card-title">{{offer.name}}</h5>
+                  <a href="offers/{{offer.id}}" class="btn btn-primary">View details</a>
+                </div>
+              </div>
+        </div>
+      </div>
+      {% endfor%}
+    </div>
 
     </body>
