@@ -37,10 +37,25 @@
         .container {
           padding: 2px 10px;
         }
-        img{
-          height:120px;
-          width:200px;
+      .bg{
+
+
+          margin-left: 550px;
+          margin-right: 550px;
+          color:white;
+       
+
         }
+        body
+        { 
+          background: url('/static/images/offeritem.jpg') no-repeat center center fixed; 
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+          
+
 
 
   </style>
@@ -112,7 +127,7 @@
 </form>
 {% endif %}
 
-</div>
+
   <div class="row">
       {% for offer in offers%}
       <a href="{{url_for('offer_profile',id=offer.id)}}">
@@ -130,4 +145,5 @@
      {% endfor%}
     </div>
 
-    </body>
+</div>
+</body>

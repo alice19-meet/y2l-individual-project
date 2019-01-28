@@ -17,20 +17,20 @@ def home():
 def offer_profile(id):
 
     offer=get_offer(id)
-    return render_template(
-        'offer.html', offer=offers)
+    return render_template('item.html', offer=offer)
 
 
 @app.route('/create', methods=['GET', 'POST'])
 def add_offer():
     if request.method == 'GET':
  
-        return render_template('create.html')
+        return render_template('create.html', login_session=login_session)
     else:
         name = request.form['name']
+        ingredients = request.form["ingredients"]
  
 
-        create_offer(name)  
+        create_offer(name, ingredients)  
         offers = get_all_offers()
         return redirect(url_for('offers'))
 
@@ -41,7 +41,8 @@ def about_us():
 
 @app.route('/offers')
 def offers():
-    return render_template('offer.html', login_session=login_session)
+    offers = query_all()
+    return render_template('offer.html', login_session=login_session, offers=offers)
 
 @app.route('/create')
 def create():
@@ -52,10 +53,8 @@ def create():
 def search():
     if request.method=='POST':
         search=request.form["search"]
-        offers=query_by_name(name=search).all()
-        return render_template('offer.html', results=offers)
-    return render_template('home.html',login_session=login_session )
-
+        offers=query_by_name(search)
+        return render_template('offer.html', login_session=login_session, offers=offers)
     if request.method=="GET":
         return render_template('offer.html', login_session=login_session)
 
