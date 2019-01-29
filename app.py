@@ -13,11 +13,20 @@ app.config['SESSION_TYPE'] = 'filesystem'
 def home():
     return render_template("home.html", login_session=login_session)
 
-@app.route('/offers/<int:id>')
+@app.route('/offers/<int:id>', methods=['POST', 'GET'])
 def offer_profile(id):
-
+    
     offer=get_offer(id)
-    return render_template('item.html', offer=offer)
+    if request.method=='POST':
+       
+        user=query_by_username(login_session['username'])
+        add_comment(request.form["text"],user,offer )
+
+
+    comments= get_all_comments(id)
+
+
+    return render_template('item.html', offer=offer, comments=comments, login_session=login_session, user_id=login_session['id'])
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -121,8 +130,16 @@ def users(username):
 @app.route('/logout')
 def logout():
     login_session.clear()
+    print(login_session)
     return redirect(url_for("home"))
 
+@app.route('/deletecomment/<int:comment_id>/<int:item_id>', methods=["POST"])
+def delete_comment_by_id(comment_id, item_id):
+    print (comment_id)
+    print (item_id)
+
+    delete_comment(comment_id)
+    return redirect(url_for('offer_profile', id=item_id))
 
 if __name__ == '__main__':
     app.run(debug=True)

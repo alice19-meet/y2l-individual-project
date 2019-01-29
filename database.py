@@ -3,7 +3,7 @@ from model import *
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('sqlite:///storage.db?check_same_thread=False')
+engine = create_engine('sqlite:///storage.db')
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -45,7 +45,7 @@ def query_all():
 	offers = session.query(Offer).all()
 	return offers
 
-def delete_comment_by_id(comment_id):
+def delete_comment(comment_id):
     session.query(Comment).filter_by(
         id=comment_id).delete()
 
@@ -68,3 +68,6 @@ def get_all_offers():
     offers = session.query(Offer).all()
     return offers
 
+def get_all_comments(id):
+    comments = session.query(Comment).filter_by(offer_id=id).all()
+    return comments
